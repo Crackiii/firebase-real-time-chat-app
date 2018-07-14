@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chat | Home</title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="plugins/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="plugins/fa/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <script type="text/javascript" src="plugins/jquery.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-firestore.js"></script>
+</head>
+<body>
+<header class="top-head">
+	<button class="logout cus-btn cus-btn-blue">Log Out</button>
+</header>	
+<div class="container">
+	<div class="chat-wrap">
+
+		<div class="row chat-wrap-row">
+			<div class="col-sm-12 col-md-4 col-lg-4 left">
+				<div class="chat-ind">
+					<div class="cht-ind-head">
+						<div class="cih-text">
+							<i class="fa fa-envelope"></i>Inbox
+						</div>
+						<div class="new-mess">
+							<button class="btn btn-sm btn-primary">+ New Message</button>
+						</div>
+					</div>
+					<div class="cht-ind-body">
+						<ul class="chat-ind-body-wrap">
+
+
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-12 col-md-4 col-lg-4 left-search">
+				<div class="col-12">
+					<button class="close-search"> <i class="fa fa-chevron-left"></i> </button>
+				</div>
+				<div class="col-12">
+					<form method="POST" class="search-from">
+						<input type="text" name="search-query" placeholder="Search Users" class="search-inp" autocomplete="off">
+						<button> <i class="fa fa-search"></i> </button>
+					</form>
+				</div>
+				<div class="col-12">
+					<div class="searched-list">
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-12 col-md-8 col-lg-8">
+				<div class="chat-messages">
+
+					<div class="chat-messages-head">
+						<div class="cmh-wrap">
+							<span class="messages-with-name">Message with <span>-</span></span>
+						</div>
+					</div>
+
+					<div class="messages-body">
+						
+          				
+					</div>
+
+					<div class="files-list">
+						 <span class="close-files-list"> <i class="fa fa-close"></i> </span>
+					</div>
+
+					<form method="POST" id="type-text-form">
+						<div class="send-mess">
+							<div class="add-items">
+								<label for="share-file">+</label>
+								<input type="file" name="" id="share-file" multiple>
+							</div>
+							<div class="type-text">
+								<textarea placeholder="Type Message..." id="typed-text" name="typed-text" required></textarea>
+							</div>
+							<div class="send-text">
+								<button type="submit"> <img src="assets/send.svg"> </button>
+							</div>
+						</div>
+					</form>
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+</body>
+<script type="text/javascript" src="plugins/jquery.cookie.js"></script>
+<script type="text/javascript" src="chat-scripts.js"></script>
+</html>

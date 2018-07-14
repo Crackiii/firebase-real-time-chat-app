@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Upload | Home</title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="plugins/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="plugins/fa/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <script type="text/javascript" src="plugins/jquery.js"></script>
+    <script type="text/javascript" src="plugins/jquery.cookie.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+</head>
+<body> 
+<style type="text/css">
+	li{list-style: none;}
+</style>
+
+	
+    <div class="list">  </div>
+	<input type="file" name="" id="fileUpload" multiple>
+
+</body>
+
+<script type="text/javascript">
+	
+	// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyDmkUcUO2a0iygoef_-G_se6zr9ytHON-o",
+    authDomain: "my-work-book.firebaseapp.com",
+    databaseURL: "https://my-work-book.firebaseio.com",
+    projectId: "my-work-book",
+    storageBucket: "my-work-book.appspot.com",
+    messagingSenderId: "661474412916"
+};
+firebase.initializeApp(config);
+
+
+var up = document.getElementById("fileUpload"),
+    pr = document.getElementsByClassName("progress");
+    list = document.getElementsByClassName("list")[0],
+    URLS = [];
+
+
+//Listen for file selection
+up.addEventListener('change', function(e){ 
+    //Get files
+    for (var i = 0; i < e.target.files.length; i++) {
+        var imageFile = e.target.files[i];
+        list.insertAdjacentHTML('beforeend','<li class="row">'+
+									          	'<div class="col-4">'+imageFile.name+'</div>'+
+									          	'<div class="col-4">'+imageFile.size+'</div>'+
+									          	'<div class="progress"><div class="progress-fill"></div></div>'+
+									          '</li>');
+        uploadImageAsPromise(imageFile,i);
+    }
+});
+
+//Handle waiting to upload each file using promise
+function uploadImageAsPromise (imageFile,i) {
+    return new Promise(function (resolve, reject) {
+        var storageRef = firebase.storage().ref($.cookie("_lo")+"/"+imageFile.name);
+
+        //Upload file
+        var task = storageRef.put(imageFile);
+
+        //Update progress bar
+        task.on('state_changed',
+            function progress(snapshot){
+                var percentage = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+                $(".progress .progress-fill").eq(i).css({"width":percentage+"%"});
+            },
+            function error(err){
+
+            },
+            function complete(){
+                var downloadURL = task.snapshot.downloadURL;
+                console.log("file " + (i+1) + " Uplaoded");
+                URLS.push(downloadURL);
+            }
+        );
+    });
+}
+
+
+
+
+
+
+</script>
+
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Auth | Home</title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="plugins/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="plugins/fa/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <script type="text/javascript" src="plugins/jquery.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-firestore.js"></script>
+</head>
+<body>
+
+	<div class="container">
+	<!--Sign up or login Start-->
+	<div class="user-auth">
+		<div class="user-auth-wrap">
+
+			<div class="col-sm-12 col-md-6 col-lg-4 user-form user-signup">
+				<div class="jfw-head row">
+					<div class="col-6 jfw-logo-sec">
+						<img src="assets/logo.svg">
+					</div>
+				</div>
+				<div class="user-form-head"> Create your Free Account </div>
+				<form method="POST" id="su_form" class="auth-form auth-signup">
+					<div class="col-12 su-error">  </div>
+					<input type="text" name="su-fname" placeholder="Full Name" class="type-inp">
+					<input type="Email" name="su-email" placeholder="Email Address" class="type-inp">
+					<input type="Password" name="su-pass" placeholder="Password" class="type-inp">
+					<input type="submit" name="su-submit" value="Sign Up" class="cus-btn cus-btn-blue su-submit">
+				</form>
+				<div class="account-ask">
+					Already have an account ? <a href="#" class="show-login">Login</a>
+				</div>
+			</div>
+
+			<div class="col-sm-12 col-md-6 col-lg-4 user-form user-login">
+				<div class="jfw-head row">
+					<div class="col-6 jfw-logo-sec">
+						<img src="assets/logo.svg">
+					</div>
+				</div>
+				<div class="user-form-head"> Login to your account !</div>
+				<form method="POST" id="lg_form" class="auth-form auth-login">
+					<div class="col-12 lg-error">  </div>
+					<input type="Email" name="lg-email" placeholder="Email Address" class="type-inp">
+					<input type="Password" name="lg-pass" placeholder="Password" class="type-inp">
+					<input type="submit" name="lg-submit"  value="Login" class="cus-btn cus-btn-blue lg-submit">
+				</form>
+				<div class="account-ask">
+					Don`t have an account ? <a href="#" class="show-signup">Sign Up</a>
+				</div>
+			</div>
+
+			<div class="col-sm-12 col-md-6 col-lg-4 su-welcome">
+				<div class="suw-head">
+					<svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>
+					<h3>Welcome Buddy !</h3>
+				</div>
+				<div class="suw-desc">
+					You are successfully In ! 
+				</div>
+			</div>
+
+			<div class="col-sm-12 col-md-6 col-lg-4 lg-welcome">
+				<div class="suw-head">
+					<svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>
+					<h3>Welcome Back!</h3>
+				</div>
+				<div class="suw-desc">
+					You are successfully In ! 
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!--Sign up or login End-->
+</div>
+
+</body>
+    <script type="text/javascript" src="plugins/jquery.cookie.js"></script>
+    <script type="text/javascript" src="chat-scripts.js"></script>
+    <!--
+function khan(pu){
+
+           _firebaseChatRef.child(_CU).on("child_added",function(res){
+         
+             _firebaseAuthRef.child(res.key).on("value",function(r){
+                
+                _chattedWith.push({name:r.val().n,id:r.key});
+                
+            })
+
+          })
+          
+          
+          if(typeof pu == "function") {
+            setTimeout(function(){pu(_chattedWith);},2000)
+          }
+          
+      }
+
+      function populateUsers(chattedWith){
+      
+
+        let len = chattedWith.length,
+            _el = document.getElementsByClassName("chat-ind-body-wrap")[0];
+          
+          while (_el.firstChild) {
+              _el.removeChild(_el.firstChild);
+          }
+
+          
+          for(var i= 0;i<len;i++){
+            _el.insertAdjacentHTML('afterbegin','<li class="chat-ind-user active-user" data-id="'+chattedWith[i].key+'">'
+                                                +'<div class="chat-ind-user-img">'
+                                                  +'<img src="assets/1.jpg">'
+                                                +'</div>'
+                                                +'<div class="chat-ind-user-data">'
+                                                  +'<div class="ciu-name"> '+chattedWith[i].name+' </div>'
+                                                  +'<div class="ciu-text"> Hi, I am the text here ! </div>'
+                                                  +'<span class="ciu-time"> 2h ago </span>'
+                                                +'</div>'
+                                                +'<span class="user-availble">'
+                                                  +'<i class="fa fa-circle"></i>'
+                                                +'</span>'
+                                              +'</li>');
+         } 
+        
+      }
+
+      khan(populateUsers);
+
+
+
+
+
+
+
+function getData(){
+
+           return new Promise(function(resolve,reject){
+               _firebaseChatRef.child(_CU).on("child_added",function(res){
+         
+                 _firebaseAuthRef.child(res.key).on("value",function(r){
+                  
+                      _chattedWith.push({name:r.val().n,id:r.key});
+                      
+                  })
+
+                })
+
+                resolve(_chattedWith) ;
+           })
+          
+      }
+
+      getData().then(function(res){
+        setTimeout(function(){ populateUsers(res)},1000);
+      })
+
+      function populateUsers(chattedWith){
+      
+        let len = chattedWith.length,
+            _el = document.getElementsByClassName("chat-ind-body-wrap")[0];
+
+
+          
+          for(var i= 0;i<len;i++){
+            _el.insertAdjacentHTML('afterbegin','<li class="chat-ind-user active-user" data-id="'+chattedWith[i].key+'">'
+                                                +'<div class="chat-ind-user-img">'
+                                                  +'<img src="assets/1.jpg">'
+                                                +'</div>'
+                                                +'<div class="chat-ind-user-data">'
+                                                  +'<div class="ciu-name"> '+chattedWith[i].name+' </div>'
+                                                  +'<div class="ciu-text"> Hi, I am the text here ! </div>'
+                                                  +'<span class="ciu-time"> 2h ago </span>'
+                                                +'</div>'
+                                                +'<span class="user-availble">'
+                                                  +'<i class="fa fa-circle"></i>'
+                                                +'</span>'
+                                              +'</li>');
+         } 
+        
+      }
+
+
+
+
+
+
+
+
+
+  -->
+</html>
